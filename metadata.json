@@ -1,0 +1,6 @@
+{
+  "name": "UnderAI",
+  "description": "UnderAI — Build. Automate. Protect. Technology services company and complete technology partner for businesses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
