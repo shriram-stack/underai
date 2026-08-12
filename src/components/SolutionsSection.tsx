@@ -102,7 +102,7 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigate }
         <div className="absolute top-1/4 -right-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
         
         {/* Section Header directly on background */}
         <SectionHeader
@@ -113,7 +113,7 @@ export const SolutionsSection: React.FC<SolutionsSectionProps> = ({ onNavigate }
 
         {/* Tab Selection Buttons */}
         <LeftReveal delay={0.2}>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 xl:gap-4 mb-8">
             {solutionCategories.map((item, idx) => {
               const Icon = item.icon;
               const isActive = idx === activeTab;

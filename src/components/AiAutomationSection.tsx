@@ -25,9 +25,9 @@ export const AiAutomationSection: React.FC<AiAutomationSectionProps> = ({ onNavi
         <div className="absolute bottom-1/4 -left-20 w-80 h-80 rounded-full bg-[#6D28D9]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-20 items-center">
           
           {/* Left: Large Abstract AI Graphic */}
           <div className="lg:col-span-6 relative flex items-center justify-center">

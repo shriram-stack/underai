@@ -142,14 +142,14 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           rotateX: heroRotateX,
           transformStyle: 'preserve-3d',
         }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full my-auto perspective-1200"
+        className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10 my-auto perspective-1200"
       >
         
         {/* MAIN HERO SPLIT GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center mb-12 lg:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center mb-12 lg:mb-16">
           
           {/* LEFT COLUMN: STRICTLY LEFT-ALIGNED TEXT & ACTIONS */}
-          <div className="lg:col-span-6 flex flex-col items-start justify-start text-left space-y-6 max-w-2xl">
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-start justify-start text-left space-y-6 lg:space-y-8 max-w-2xl xl:max-w-3xl">
             
             {/* Eyebrow Pill Badge */}
             <motion.div 
@@ -174,7 +174,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 font-heading tracking-tight leading-[1.08] text-left max-w-xl"
+              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 font-heading tracking-tight leading-[1.08] text-left max-w-xl xl:max-w-2xl"
             >
               Build smarter.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6]">
@@ -188,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl text-left"
+              className="text-base sm:text-lg xl:text-xl text-slate-600 font-normal leading-relaxed max-w-xl xl:max-w-2xl text-left"
             >
               UnderTheAI helps businesses build modern websites, integrate AI, automate workflows, strengthen cybersecurity, manage cloud infrastructure and streamline DevOps.
             </motion.p>
@@ -227,11 +227,11 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           </div>
 
           {/* RIGHT COLUMN: ANIMATED 3D FLOATING CORE & 5 CONNECTED TECH NODES */}
-          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[440px] sm:min-h-[500px] lg:min-h-[540px] w-full">
+          <div className="lg:col-span-6 xl:col-span-6 relative flex items-center justify-center min-h-[440px] sm:min-h-[500px] lg:min-h-[560px] xl:min-h-[600px] w-full">
             
             {/* Interactive 3D Canvas with Parallax */}
             <div 
-              className="relative w-full max-w-[540px] aspect-square flex items-center justify-center transition-transform duration-300 ease-out"
+              className="relative w-full max-w-[540px] xl:max-w-[620px] aspect-square flex items-center justify-center transition-transform duration-300 ease-out"
               style={{
                 transform: `perspective(1000px) rotateY(${mousePos.x * 10}deg) rotateX(${-mousePos.y * 10}deg)`
               }}

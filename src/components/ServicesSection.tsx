@@ -61,7 +61,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigate }) 
         <div className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
         
         {/* Section Header directly on background */}
         <SectionHeader
@@ -71,7 +71,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigate }) 
         />
 
         {/* Services Grid with Hover Lift and Staggered Scroll Entrance */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 xl:gap-10">
           {servicesList.map((service, idx) => {
             const Icon = service.icon;
             return (

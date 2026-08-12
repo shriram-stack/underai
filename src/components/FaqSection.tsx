@@ -19,7 +19,7 @@ export const FaqSection: React.FC = () => {
         <div className="absolute top-1/3 -left-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
         
         {/* Section Header directly on background */}
         <SectionHeader
@@ -29,7 +29,7 @@ export const FaqSection: React.FC = () => {
         />
 
         {/* Accordion List */}
-        <div className="max-w-3xl space-y-3">
+        <div className="max-w-4xl lg:max-w-5xl mx-auto space-y-4">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index;
             return (

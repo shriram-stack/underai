@@ -11,7 +11,7 @@ export const PrivacyPage: React.FC = () => {
         <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-[#6D28D9]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 relative z-10">
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 space-y-8 relative z-10">
         
         {/* Header - Left Aligned */}
         <LeftReveal delay={0} className="text-left space-y-4 mb-12">

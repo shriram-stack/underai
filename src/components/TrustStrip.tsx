@@ -13,9 +13,9 @@ export const TrustStrip: React.FC = () => {
 
   return (
     <section className="py-7 bg-white/90 backdrop-blur-md border-y border-slate-200/80 overflow-hidden relative z-20 shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16">
         <LeftReveal delay={0}>
-          <div className="flex flex-wrap items-center justify-start gap-5 sm:gap-8 md:gap-10 text-xs sm:text-sm font-bold tracking-wide uppercase text-slate-700">
+          <div className="flex flex-wrap items-center justify-start lg:justify-between gap-5 sm:gap-8 md:gap-10 text-xs sm:text-sm font-bold tracking-wide uppercase text-slate-700">
             {items.map((item, idx) => (
               <React.Fragment key={item}>
                 <span className="hover:text-[#6D28D9] transition-colors duration-200 cursor-default flex items-center gap-2.5">

@@ -24,7 +24,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-6xl xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 relative z-10">
         
         {/* Header - Left Aligned */}
         <LeftReveal delay={0} className="text-left space-y-4 mb-16">
@@ -32,10 +32,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             <Sparkles className="w-3.5 h-3.5" />
             <span>About UnderTheAI</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 font-heading tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 font-heading tracking-tight">
             Engineering intelligence for the real world.
           </h1>
-          <p className="text-slate-600 text-lg max-w-2xl font-normal leading-relaxed">
+          <p className="text-slate-600 text-lg sm:text-xl max-w-3xl font-normal leading-relaxed">
             UnderTheAI is a technology company focused on AI, automation, cybersecurity, cloud infrastructure and modern software engineering.
           </p>
         </LeftReveal>

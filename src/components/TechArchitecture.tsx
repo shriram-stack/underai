@@ -62,7 +62,7 @@ export const TechArchitecture: React.FC<TechArchitectureProps> = ({ onNavigate }
           <div className="absolute bottom-1/3 -right-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           
           <SectionHeader
             badge="Enterprise Defense"
@@ -70,7 +70,7 @@ export const TechArchitecture: React.FC<TechArchitectureProps> = ({ onNavigate }
             description="Protect applications, infrastructure and data with modern cybersecurity practices."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
             {securityPillars.map((pillar, idx) => {
               const Icon = pillar.icon;
               return (
@@ -99,7 +99,7 @@ export const TechArchitecture: React.FC<TechArchitectureProps> = ({ onNavigate }
           <div className="absolute top-1/2 -right-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
           
           <SectionHeader
             badge="Cloud & DevOps Pipeline"

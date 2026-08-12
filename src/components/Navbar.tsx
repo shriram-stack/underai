@@ -34,8 +34,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-3 pb-2 px-4 sm:px-6 lg:px-8 pointer-events-none">
-      <div className="max-w-7xl mx-auto pointer-events-auto">
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-3 pb-2 px-3 sm:px-6 lg:px-10 xl:px-12 pointer-events-none">
+      <div className="w-full max-w-[1720px] mx-auto pointer-events-auto">
         <div className={`flex items-center justify-between px-5 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
           scrolled 
             ? 'bg-white/90 backdrop-blur-2xl border border-slate-200 shadow-xl shadow-slate-200/60 py-3 scale-[0.99]' 

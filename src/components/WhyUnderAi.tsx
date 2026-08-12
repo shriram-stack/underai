@@ -39,7 +39,7 @@ export const WhyUnderAi: React.FC<WhyUnderAiProps> = ({ onNavigate }) => {
         <div className="absolute bottom-1/3 -left-20 w-80 h-80 rounded-full bg-[#6D28D9]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
         
         {/* Section Header directly on background */}
         <SectionHeader
@@ -49,7 +49,7 @@ export const WhyUnderAi: React.FC<WhyUnderAiProps> = ({ onNavigate }) => {
         />
 
         {/* 4 Cards Grid with 3D Tilt */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
           {cards.map((card, idx) => {
             const Icon = card.icon;
             return (

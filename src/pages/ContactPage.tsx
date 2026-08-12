@@ -39,18 +39,18 @@ export const ContactPage: React.FC = () => {
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
         
         {/* Header - Left Aligned */}
-        <LeftReveal delay={0} className="text-left space-y-4 mb-16 max-w-2xl">
+        <LeftReveal delay={0} className="text-left space-y-4 mb-16 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-[#6D28D9] text-xs font-bold uppercase tracking-wider shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#6D28D9]" />
             <span>Get In Touch</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 font-heading tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 font-heading tracking-tight">
             Let's build something intelligent.
           </h1>
-          <p className="text-slate-600 text-lg font-normal leading-relaxed">
+          <p className="text-slate-600 text-lg sm:text-xl font-normal leading-relaxed">
             Ready to integrate AI, automate processes or strengthen your cloud security? Send us a message to get started.
           </p>
         </LeftReveal>

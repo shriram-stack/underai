@@ -12,7 +12,7 @@ export const ProcessSection: React.FC = () => {
         <div className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-16 relative z-10">
         
         {/* Section Header directly on background */}
         <SectionHeader
@@ -22,7 +22,7 @@ export const ProcessSection: React.FC = () => {
         />
 
         {/* Process Steps with 3D Tilt */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
           {PROCESS_STEPS.map((step, idx) => (
             <CardStagger key={step.number} index={idx}>
               <Tilt3DCard className="bg-white border border-slate-200/90 hover:border-[#7C3AED]/50 rounded-2xl p-6.5 relative flex flex-col justify-between shadow-md hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 ease-out h-full backdrop-blur-xl">
