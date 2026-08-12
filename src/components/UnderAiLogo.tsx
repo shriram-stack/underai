@@ -4,12 +4,18 @@ interface LogoProps {
   className?: string;
   showTagline?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'light' | 'dark';
 }
 
-export const UnderAiLogo: React.FC<LogoProps> = ({ className = '', showTagline = false, size = 'md' }) => {
+export const UnderAiLogo: React.FC<LogoProps> = ({ 
+  className = '', 
+  showTagline = false, 
+  size = 'md',
+  variant = 'light'
+}) => {
   const iconSizes = {
-    sm: 'w-7 h-7',
-    md: 'w-9 h-9',
+    sm: 'w-8 h-8',
+    md: 'w-10 h-10',
     lg: 'w-12 h-12'
   };
 
@@ -21,37 +27,32 @@ export const UnderAiLogo: React.FC<LogoProps> = ({ className = '', showTagline =
 
   return (
     <div className={`flex items-center gap-3 select-none group ${className}`}>
-      {/* Futuristic U Mark with circuit lines and blue AI accent */}
-      <div className={`relative flex items-center justify-center rounded-xl bg-gradient-to-br from-[#0f172a] to-[#030712] border border-slate-800/80 shadow-lg shadow-blue-500/10 transition-transform duration-300 group-hover:scale-105 ${iconSizes[size]}`}>
-        {/* Subtle circuit nodes */}
-        <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)] animate-pulse" />
-        <div className="absolute -bottom-0.5 -left-0.5 w-1 h-1 bg-cyan-400 rounded-full" />
+      {/* Clean Abstract Rounded "U" + AI Icon */}
+      <div className={`relative flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6] shadow-md shadow-purple-500/25 transition-transform duration-300 group-hover:scale-105 ${iconSizes[size]}`}>
+        {/* Soft glowing background aura */}
+        <div className="absolute inset-0 rounded-2xl bg-[#7C3AED]/40 blur-md -z-10 group-hover:blur-lg transition-all" />
         
-        {/* Futuristic U Symbol */}
+        {/* Abstract U Symbol */}
         <svg
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="w-5 h-5 text-white"
         >
-          {/* Circuit connection line */}
+          {/* Main U curve */}
           <path
-            d="M6 5v7a6 6 0 1 0 12 0V5"
+            d="M6 5V12C6 15.3137 8.68629 18 12 18C15.3137 18 18 15.3137 18 12V5"
             stroke="currentColor"
-            strokeWidth="2.2"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
-          {/* Blue AI accent terminal */}
+          {/* AI Sparkle node */}
+          <circle cx="18" cy="5" r="2" fill="#EDE9FE" />
+          <circle cx="6" cy="5" r="2" fill="#EDE9FE" />
           <path
-            d="M18 5h2"
-            stroke="#3b82f6"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-          />
-          <path
-            d="M4 5h2"
-            stroke="#3b82f6"
-            strokeWidth="2.2"
+            d="M12 11V15"
+            stroke="#EDE9FE"
+            strokeWidth="2"
             strokeLinecap="round"
           />
         </svg>
@@ -59,18 +60,21 @@ export const UnderAiLogo: React.FC<LogoProps> = ({ className = '', showTagline =
 
       {/* Wordmark and optional tagline */}
       <div className="flex flex-col">
-        <div className={`font-bold tracking-tight text-white flex items-center gap-1.5 ${textSizes[size]}`}>
-          <span>Under</span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-400">
+        <div className={`font-bold font-heading tracking-tight flex items-center ${variant === 'dark' ? 'text-white' : 'text-slate-900'} ${textSizes[size]}`}>
+          <span>UnderThe</span>
+          <span className="bg-gradient-to-r from-[#7C3AED] to-[#A855F7] bg-clip-text text-transparent ml-0.5">
             AI
           </span>
         </div>
         {showTagline && (
-          <span className="text-[10px] uppercase tracking-widest text-slate-400 font-medium">
-            Intelligence Beyond Limits
+          <span className={`text-[10px] uppercase tracking-widest font-semibold ${variant === 'dark' ? 'text-slate-300' : 'text-purple-700/90'}`}>
+            INTELLIGENCE BEYOND LIMITS
           </span>
         )}
       </div>
     </div>
   );
 };
+
+export const UnderTheAiLogo = UnderAiLogo;
+

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <!-- Background Radial Glow -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#EAF4FF" />
+      <stop offset="60%" stop-color="#F5FAFF" />
+      <stop offset="100%" stop-color="#E2EBF8" />
+    </radialGradient>
+    
+    <!-- Orb Glass Gradient -->
+    <radialGradient id="orbGlass" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="40%" stop-color="#E8F2FF" stop-opacity="0.85" />
+      <stop offset="85%" stop-color="#CDE0F9" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#B2D0F7" stop-opacity="0.95" />
+    </radialGradient>
+
+    <!-- Logo U Gradient -->
+    <linearGradient id="uGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E52A0" />
+      <stop offset="50%" stop-color="#103778" />
+      <stop offset="100%" stop-color="#0B2046" />
+    </linearGradient>
+
+    <!-- Circuit Line Accent -->
+    <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#287BEA" />
+      <stop offset="100%" stop-color="#60A5FA" />
+    </linearGradient>
+
+    <!-- Outer Rim Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Canvas Circle -->
+  <rect width="128" height="128" rx="28" fill="url(#bgGlow)" />
+
+  <!-- Outer Ambient Wave Rings -->
+  <circle cx="64" cy="64" r="58" stroke="#287BEA" stroke-opacity="0.15" stroke-width="1" fill="none" />
+  <circle cx="64" cy="64" r="52" stroke="#6366F1" stroke-opacity="0.1" stroke-width="1" fill="none" />
+
+  <!-- Glass Orb Container -->
+  <circle cx="64" cy="64" r="46" fill="url(#orbGlass)" stroke="#FFFFFF" stroke-width="2.5" filter="url(#softGlow)" />
+  <circle cx="64" cy="64" r="46" stroke="#C3DAF8" stroke-width="1.5" fill="none" />
+
+  <!-- Glass Highlight Arc -->
+  <path d="M 32 48 A 38 38 0 0 1 88 38" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8" />
+
+  <!-- Circuit Trace Lines Right Side -->
+  <path d="M 72 52 L 88 52 L 94 58 L 98 58" stroke="url(#circuitGrad)" stroke-width="1.8" stroke-linecap="round" fill="none" />
+  <circle cx="98" cy="58" r="2" fill="#287BEA" />
+
+  <path d="M 76 66 L 86 66 L 90 70 L 96 70" stroke="url(#circuitGrad)" stroke-width="1.8" stroke-linecap="round" fill="none" />
+  <circle cx="96" cy="70" r="2" fill="#287BEA" />
+
+  <path d="M 70 80 L 80 80 L 84 84 L 90 84" stroke="url(#circuitGrad)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+  <circle cx="90" cy="84" r="1.8" fill="#287BEA" />
+
+  <!-- Floating Sparkles -->
+  <path d="M 86 40 L 88 43 L 91 43 L 89 45 L 90 48 L 87 46 L 84 48 L 85 45 L 83 43 L 86 43 Z" fill="#287BEA" opacity="0.8" />
+
+  <!-- Central U Tech Mark -->
+  <g transform="translate(38, 38)">
+    <!-- Main Left Stem -->
+    <path d="M 12 6 L 12 28 C 12 36 18 40 26 40 C 34 40 40 36 40 28 L 40 6 L 31 6 L 31 27 C 31 31 29 33 26 33 C 23 33 21 31 21 27 L 21 6 Z" fill="url(#uGrad)" />
+    
+    <!-- Sharp Tech Cut Corner on Left Top -->
+    <path d="M 6 6 L 12 6 L 12 16 L 6 10 Z" fill="url(#uGrad)" />
+    
+    <!-- Small Center Dot -->
+    <circle cx="26" cy="30" r="2.5" fill="#287BEA" />
+  </g>
+</svg>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { UnderAiLogo } from './UnderAiLogo';
+import { Linkedin, Github, Twitter, ArrowUpRight } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
@@ -12,133 +13,114 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer className="bg-[#03050A] border-t border-slate-900 text-slate-400 py-16">
+    <footer className="bg-white text-slate-900 border-t border-slate-200 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-slate-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-slate-200">
           
-          {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-4">
-            <UnderAiLogo size="md" showTagline={true} />
-            
-            <p className="text-slate-300 font-mono text-xs tracking-wider uppercase">
-              Build. Automate. Protect.
+          {/* Brand Col */}
+          <div className="md:col-span-5 space-y-4">
+            <button
+              onClick={() => handleLinkClick('/')}
+              className="text-left focus:outline-none cursor-pointer"
+            >
+              <UnderAiLogo size="md" variant="light" />
+            </button>
+            <p className="text-slate-600 text-sm max-w-sm leading-relaxed font-normal">
+              UnderTheAI builds intelligent AI solutions, automation systems, secure applications, cloud infrastructure and modern DevOps platforms.
             </p>
-
-            <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-              UnderAI is a technology services company and complete technology partner for businesses, helping small businesses, retail shops, startups, and growing companies thrive without an internal IT team.
-            </p>
+            <div className="pt-2 text-xs font-semibold uppercase tracking-widest text-[#6D28D9]">
+              INTELLIGENCE BEYOND LIMITS
+            </div>
           </div>
 
-          {/* Navigation Column */}
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">
-              Navigation
-            </h4>
-            <ul className="space-y-3 text-sm">
+          {/* Quick Links */}
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-heading">Navigation</h4>
+            <ul className="space-y-2.5 text-sm text-slate-600 font-medium">
               <li>
-                <button onClick={() => handleLinkClick('/')} className="hover:text-white transition-colors">
+                <button onClick={() => handleLinkClick('/')} className="hover:text-[#6D28D9] transition-colors cursor-pointer">
                   Home
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('/services')} className="hover:text-white transition-colors">
+                <button onClick={() => handleLinkClick('/services')} className="hover:text-[#6D28D9] transition-colors cursor-pointer">
                   Services
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('/solutions')} className="hover:text-white transition-colors">
+                <button onClick={() => handleLinkClick('/solutions')} className="hover:text-[#6D28D9] transition-colors cursor-pointer">
                   Solutions
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('/about')} className="hover:text-white transition-colors">
+                <button onClick={() => handleLinkClick('/about')} className="hover:text-[#6D28D9] transition-colors cursor-pointer">
                   About
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('/contact')} className="hover:text-white transition-colors">
+                <button onClick={() => handleLinkClick('/contact')} className="hover:text-[#6D28D9] transition-colors cursor-pointer">
                   Contact
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Services Column */}
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">
-              Services
-            </h4>
-            <ul className="space-y-3 text-sm">
+          {/* Legal & Social */}
+          <div className="md:col-span-4 space-y-4">
+            <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-heading">Legal & Connect</h4>
+            <ul className="space-y-2.5 text-sm text-slate-600 font-medium">
               <li>
-                <button onClick={() => handleLinkClick('/services')} className="hover:text-white transition-colors text-left">
-                  Website Development
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick('/services')} className="hover:text-white transition-colors text-left">
-                  AI Integration
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick('/services')} className="hover:text-white transition-colors text-left">
-                  AI Chat Support
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick('/services')} className="hover:text-white transition-colors text-left">
-                  Cybersecurity
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick('/services')} className="hover:text-white transition-colors text-left">
-                  Cloud & DevOps
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleLinkClick('/services')} className="hover:text-white transition-colors text-left">
-                  IT Support
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal Column */}
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">
-              Legal
-            </h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <button onClick={() => handleLinkClick('/privacy')} className="hover:text-white transition-colors">
+                <button onClick={() => handleLinkClick('/privacy')} className="hover:text-[#6D28D9] transition-colors cursor-pointer">
                   Privacy Policy
                 </button>
               </li>
               <li>
-                <button onClick={() => handleLinkClick('/terms')} className="hover:text-white transition-colors">
-                  Terms & Conditions
+                <button onClick={() => handleLinkClick('/terms')} className="hover:text-[#6D28D9] transition-colors cursor-pointer">
+                  Terms of Service
                 </button>
               </li>
             </ul>
+
+            <div className="pt-2 flex items-center gap-3">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#7C3AED] text-slate-600 hover:text-[#6D28D9] flex items-center justify-center transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#7C3AED] text-slate-600 hover:text-[#6D28D9] flex items-center justify-center transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+              <a
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 hover:border-[#7C3AED] text-slate-600 hover:text-[#6D28D9] flex items-center justify-center transition-colors"
+                aria-label="X"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+            </div>
           </div>
 
         </div>
 
-        {/* Footer Bottom */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+        {/* Copyright */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <div>
-            &copy; {new Date().getFullYear()} UnderAI. All rights reserved. Intelligence Beyond Limits.
+            © {new Date().getFullYear()} UnderTheAI Inc. All rights reserved.
           </div>
-          <div className="mt-4 sm:mt-0 flex items-center space-x-6">
-            <button onClick={() => handleLinkClick('/privacy')} className="hover:text-slate-400 transition-colors">
-              Privacy
-            </button>
-            <button onClick={() => handleLinkClick('/terms')} className="hover:text-slate-400 transition-colors">
-              Terms
-            </button>
-            <button onClick={() => handleLinkClick('/contact')} className="hover:text-slate-400 transition-colors">
-              Support
-            </button>
+          <div className="flex items-center gap-2 text-slate-500">
+            <span>Engineering Intelligence for the Real World</span>
           </div>
         </div>
 

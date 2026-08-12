@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FAQ_ITEMS } from '../data/underaiData';
 import { ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { SectionHeader, LeftReveal } from './ScrollAnimations';
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -10,54 +12,65 @@ export const FaqSection: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-[#03050A] relative border-t border-slate-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 lg:py-24 relative bg-slate-50 border-t border-slate-200 overflow-hidden">
+      
+      {/* Background Ambient Orbs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/3 -left-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            FAQ
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-slate-300 text-base">
-            Everything you need to know about working with UnderAI as your technology partner.
-          </p>
-        </div>
+        {/* Section Header directly on background */}
+        <SectionHeader
+          badge="FAQ"
+          title="Frequently Asked Questions"
+          description="Everything you need to know about working with UnderTheAI as your technology partner."
+        />
 
         {/* Accordion List */}
-        <div className="space-y-4">
+        <div className="max-w-3xl space-y-3">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index;
             return (
-              <div
-                key={index}
-                className="bg-[#070A12] border border-slate-800/80 rounded-xl overflow-hidden transition-all duration-200"
-              >
-                <button
-                  onClick={() => toggleAccordion(index)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
-                >
-                  <span className="text-base sm:text-lg font-semibold text-white">
-                    {item.question}
-                  </span>
-                  <div className={`w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 text-blue-400' : ''}`}>
-                    <ChevronDown className="w-4 h-4" />
-                  </div>
-                </button>
+              <LeftReveal key={index} delay={index * 0.08}>
+                <div className={`border rounded-2xl overflow-hidden transition-all duration-300 ease-out shadow-xs ${isOpen ? 'bg-white border-[#7C3AED] shadow-xl ring-2 ring-purple-100' : 'bg-white/80 border-slate-200/90 hover:border-[#7C3AED]/40 hover:bg-white backdrop-blur-md'}`}>
+                  <button
+                    onClick={() => toggleAccordion(index)}
+                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
+                  >
+                    <span className="text-base sm:text-lg font-bold text-slate-900 font-heading">
+                      {item.question}
+                    </span>
+                    <div className={`w-8 h-8 rounded-xl border flex items-center justify-center transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 bg-[#7C3AED] text-white border-[#7C3AED]' : 'bg-slate-50 border-slate-200 text-[#6D28D9]'}`}>
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </button>
 
-                {isOpen && (
-                  <div className="px-6 pb-6 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-slate-800/60 pt-4">
-                    {item.answer}
-                  </div>
-                )}
-              </div>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 text-slate-600 text-sm sm:text-base font-normal leading-relaxed border-t border-slate-100 pt-4 bg-white">
+                          {item.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </LeftReveal>
             );
           })}
         </div>
+
 
       </div>
     </section>
   );
 };
+

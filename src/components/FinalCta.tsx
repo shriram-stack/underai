@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { LeftReveal, Tilt3DCard } from './ScrollAnimations';
 
 interface FinalCtaProps {
   onNavigate: (path: string) => void;
@@ -7,53 +8,65 @@ interface FinalCtaProps {
 
 export const FinalCta: React.FC<FinalCtaProps> = ({ onNavigate }) => {
   return (
-    <section className="py-24 bg-[#070A12] relative border-t border-slate-900 overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(37,99,235,0.12),transparent)] pointer-events-none" />
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <section className="py-16 lg:py-24 bg-slate-50 border-t border-slate-200 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="bg-[#03050A] border border-slate-800/80 rounded-3xl p-8 sm:p-16 shadow-2xl relative overflow-hidden">
-          
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/50 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Get Started with UnderAI</span>
-          </div>
+        {/* Light Glassmorphic Gradient Container */}
+        <LeftReveal delay={0}>
+          <Tilt3DCard className="w-full">
+            <div className="relative rounded-3xl bg-gradient-to-br from-white via-slate-50 to-purple-50/40 border border-slate-200/90 p-8 sm:p-16 text-left shadow-xl backdrop-blur-2xl overflow-hidden">
+              
+              {/* Subtle Ambient Glowing Background Orbs */}
+              <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#6D28D9]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#7C3AED]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Let’s build what’s next.
-          </h2>
+              <div className="max-w-3xl relative z-10 space-y-6">
+                
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-[#6D28D9] text-xs font-bold uppercase tracking-wider shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-[#6D28D9]" />
+                  <span>Let's Partner Up</span>
+                </div>
 
-          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            Tell us what your business needs and let's find the right technology solution.
-          </p>
+                <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 font-heading tracking-tight leading-[1.12]">
+                  Ready to build what's next?
+                </h2>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => {
-                onNavigate('/contact');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-[0_0_30px_rgba(37,99,235,0.4)] cursor-pointer"
-            >
-              <span>Start a Project</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
+                <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed font-normal">
+                  Let's turn your ideas into intelligent, scalable and secure technology.
+                </p>
 
-            <button
-              onClick={() => {
-                onNavigate('/services');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-all cursor-pointer"
-            >
-              Explore Services
-            </button>
-          </div>
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-start gap-4">
+                  <button
+                    onClick={() => {
+                      onNavigate('/contact');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6] hover:brightness-110 transition-all shadow-lg shadow-purple-500/25 cursor-pointer active:scale-95"
+                  >
+                    <span>Start a Project</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </button>
 
-        </div>
+                  <button
+                    onClick={() => {
+                      onNavigate('/services');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="inline-flex items-center justify-center px-8 py-4 rounded-2xl text-sm font-bold text-slate-900 bg-white hover:bg-purple-50/50 border border-slate-200 transition-all cursor-pointer shadow-sm hover:border-[#7C3AED] active:scale-95 backdrop-blur-md"
+                  >
+                    Explore Services
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+          </Tilt3DCard>
+        </LeftReveal>
 
       </div>
     </section>
   );
 };
+
+

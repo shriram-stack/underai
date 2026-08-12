@@ -1,32 +1,34 @@
 import React from 'react';
+import { LeftReveal } from './ScrollAnimations';
 
 export const TrustStrip: React.FC = () => {
   const items = [
-    'Websites',
-    'AI Integration',
-    'Automation',
+    'AI Automation',
     'Cybersecurity',
-    'Cloud',
-    'DevOps',
-    'IT Support'
+    'Cloud Infrastructure',
+    'DevOps Engineering',
+    'Web Development',
+    'Custom AI/ML'
   ];
 
   return (
-    <section className="py-8 bg-[#03050A] border-y border-slate-900/80 overflow-hidden">
+    <section className="py-7 bg-white/90 backdrop-blur-md border-y border-slate-200/80 overflow-hidden relative z-20 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 md:gap-16 text-xs sm:text-sm font-mono tracking-widest uppercase text-slate-400">
-          {items.map((item, idx) => (
-            <React.Fragment key={item}>
-              <span className="hover:text-blue-400 transition-colors duration-200 cursor-default flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60" />
-                {item}
-              </span>
-              {idx < items.length - 1 && (
-                <span className="hidden md:inline-block text-slate-800">/</span>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+        <LeftReveal delay={0}>
+          <div className="flex flex-wrap items-center justify-start gap-5 sm:gap-8 md:gap-10 text-xs sm:text-sm font-bold tracking-wide uppercase text-slate-700">
+            {items.map((item, idx) => (
+              <React.Fragment key={item}>
+                <span className="hover:text-[#6D28D9] transition-colors duration-200 cursor-default flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-[#7C3AED] shadow-xs shadow-purple-500/30" />
+                  {item}
+                </span>
+                {idx < items.length - 1 && (
+                  <span className="hidden sm:inline-block text-slate-300 font-normal">•</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </LeftReveal>
       </div>
     </section>
   );

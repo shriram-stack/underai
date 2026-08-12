@@ -1,55 +1,84 @@
 import React from 'react';
-import { WHY_UNDERAI_FEATURES } from '../data/underaiData';
-import { CheckCircle2 } from 'lucide-react';
+import { Lightbulb, Shield, TrendingUp, Award } from 'lucide-react';
+import { SectionHeader, CardStagger, Tilt3DCard } from './ScrollAnimations';
 
-export const WhyUnderAi: React.FC = () => {
+interface WhyUnderAiProps {
+  onNavigate?: (path: string) => void;
+}
+
+export const WhyUnderAi: React.FC<WhyUnderAiProps> = ({ onNavigate }) => {
+  const cards = [
+    {
+      title: 'Innovation First',
+      description: 'Modern technologies designed around real business needs.',
+      icon: Lightbulb
+    },
+    {
+      title: 'Security by Design',
+      description: 'Security is integrated from architecture to deployment.',
+      icon: Shield
+    },
+    {
+      title: 'Built to Scale',
+      description: 'Solutions designed to grow with your business.',
+      icon: TrendingUp
+    },
+    {
+      title: 'Engineering Excellence',
+      description: 'Clean, reliable and maintainable technology.',
+      icon: Award
+    }
+  ];
+
   return (
-    <section className="py-24 bg-[#070A12] relative border-t border-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 lg:py-24 relative bg-white overflow-hidden border-t border-slate-200">
+      
+      {/* Background Ambient Orbs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/3 -right-20 w-80 h-80 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
+        <div className="absolute bottom-1/3 -left-20 w-80 h-80 rounded-full bg-[#6D28D9]/10 blur-[130px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/40 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            Why UnderAI
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            One technology partner. Multiple ways to move your business forward.
-          </h2>
-          <p className="text-slate-300 text-base sm:text-lg">
-            We combine software craftsmanship, practical AI integration, and robust infrastructure so you never have to juggle multiple vendors.
-          </p>
-        </div>
+        {/* Section Header directly on background */}
+        <SectionHeader
+          badge="The UnderTheAI Advantage"
+          title="Why UnderTheAI?"
+          description="We combine high-performance software engineering with practical artificial intelligence to deliver lasting value."
+        />
 
-        {/* 6 Clean Feature Blocks */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {WHY_UNDERAI_FEATURES.map((item) => (
-            <div
-              key={item.number}
-              className="bg-[#03050A] border border-slate-800/80 rounded-2xl p-8 transition-all duration-300 hover:border-blue-500/40 hover:shadow-[0_0_25px_rgba(37,99,235,0.1)] flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-2xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-                    {item.number}
-                  </span>
-                  <div className="w-8 h-8 rounded-lg bg-blue-950/40 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                    <CheckCircle2 className="w-4 h-4" />
+        {/* 4 Cards Grid with 3D Tilt */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {cards.map((card, idx) => {
+            const Icon = card.icon;
+            return (
+              <CardStagger key={idx} index={idx}>
+                <Tilt3DCard
+                  onClick={() => onNavigate && onNavigate('/about')}
+                  className="group bg-slate-50 border border-slate-200/90 hover:border-[#7C3AED]/50 rounded-2xl p-6.5 transition-all duration-300 ease-out shadow-md hover:shadow-2xl hover:shadow-purple-500/10 flex flex-col items-start cursor-pointer h-full backdrop-blur-xl"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-purple-50 text-[#6D28D9] border border-purple-200 flex items-center justify-center mb-5 group-hover:bg-[#7C3AED] group-hover:text-white transition-colors duration-300 shadow-xs">
+                    <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
                   </div>
-                </div>
-
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {item.title}
-                </h3>
-
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </div>
-          ))}
+                  <h3 className="text-xl font-bold text-slate-900 font-heading mb-3 group-hover:text-[#6D28D9] transition-colors">
+                    {card.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                    {card.description}
+                  </p>
+                </Tilt3DCard>
+              </CardStagger>
+            );
+          })}
         </div>
 
       </div>
     </section>
   );
 };
+
+export const WhyUnderTheAi = WhyUnderAi;
+
+
+

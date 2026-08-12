@@ -1,34 +1,26 @@
 import React, { useState } from 'react';
-import { UNDERAI_SERVICES } from '../data/underaiData';
-import { Send, CheckCircle2, Sparkles, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, Sparkles, ArrowRight } from 'lucide-react';
+import { LeftReveal, Tilt3DCard } from '../components/ScrollAnimations';
 
 export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
-    businessName: '',
     email: '',
-    phone: '',
-    service: UNDERAI_SERVICES[0].title,
-    projectDescription: ''
+    company: '',
+    service: 'AI Automation',
+    message: ''
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validate = () => {
-    const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required.';
-    if (!formData.businessName.trim()) newErrors.businessName = 'Business name is required.';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required.';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address.';
-    }
-    if (!formData.projectDescription.trim()) {
-      newErrors.projectDescription = 'Please provide a brief project description.';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    const errs: { [key: string]: string } = {};
+    if (!formData.name.trim()) errs.name = 'Name is required';
+    if (!formData.email.trim() || !formData.email.includes('@')) errs.email = 'Valid email is required';
+    if (!formData.message.trim()) errs.message = 'Message is required';
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -39,189 +31,210 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#03050A] text-white pt-28 pb-24">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 text-slate-900 pt-32 pb-24 relative overflow-hidden">
+      
+      {/* Background ambient orbs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-[#6D28D9]/10 blur-[130px]" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/50 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Contact UnderAI</span>
+        {/* Header - Left Aligned */}
+        <LeftReveal delay={0} className="text-left space-y-4 mb-16 max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-[#6D28D9] text-xs font-bold uppercase tracking-wider shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#6D28D9]" />
+            <span>Get In Touch</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Start your project with UnderAI.
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 font-heading tracking-tight">
+            Let's build something intelligent.
           </h1>
-          <p className="text-slate-300 text-base sm:text-lg">
-            Tell us about your business needs and let's find the right technology solution.
+          <p className="text-slate-600 text-lg font-normal leading-relaxed">
+            Ready to integrate AI, automate processes or strengthen your cloud security? Send us a message to get started.
           </p>
-        </div>
+        </LeftReveal>
 
-        {/* Form Container */}
-        <div className="bg-[#070A12] border border-slate-800/80 rounded-3xl p-8 sm:p-12 shadow-2xl relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {submitted ? (
-            <div className="text-center py-16 space-y-6">
-              <div className="w-16 h-16 rounded-full bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 mx-auto">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-bold text-white">Project Inquiry Received</h3>
-              <p className="text-slate-300 max-w-md mx-auto text-sm sm:text-base leading-relaxed">
-                Thank you, <strong className="text-white">{formData.name}</strong>. Your inquiry regarding <strong className="text-blue-400">{formData.service}</strong> for <strong className="text-white">{formData.businessName}</strong> has been prepared successfully.
-              </p>
-              <p className="text-xs text-slate-500 font-mono pt-4 border-t border-slate-800">
-                Frontend validation passed successfully. Ready for backend API integration.
-              </p>
-              <button
-                onClick={() => {
-                  setSubmitted(false);
-                  setFormData({
-                    name: '',
-                    businessName: '',
-                    email: '',
-                    phone: '',
-                    service: UNDERAI_SERVICES[0].title,
-                    projectDescription: ''
-                  });
-                }}
-                className="mt-6 px-6 py-2.5 rounded-xl text-sm font-medium text-white bg-slate-900 border border-slate-800 hover:bg-slate-800 transition-all cursor-pointer"
-              >
-                Submit Another Inquiry
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {/* Name */}
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">
-                    Your Name <span className="text-blue-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Sarah Jenkins"
-                    className={`w-full bg-[#03050A] border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-colors ${
-                      errors.name ? 'border-red-500' : 'border-slate-800 focus:border-blue-500'
-                    }`}
-                  />
-                  {errors.name && (
-                    <span className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
-                      <AlertCircle className="w-3 h-3" /> {errors.name}
-                    </span>
-                  )}
-                </div>
-
-                {/* Business Name */}
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">
-                    Business Name <span className="text-blue-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.businessName}
-                    onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                    placeholder="e.g. Jenkins Retail & Goods"
-                    className={`w-full bg-[#03050A] border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-colors ${
-                      errors.businessName ? 'border-red-500' : 'border-slate-800 focus:border-blue-500'
-                    }`}
-                  />
-                  {errors.businessName && (
-                    <span className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
-                      <AlertCircle className="w-3 h-3" /> {errors.businessName}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {/* Email */}
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">
-                    Email Address <span className="text-blue-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="sarah@business.com"
-                    className={`w-full bg-[#03050A] border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-colors ${
-                      errors.email ? 'border-red-500' : 'border-slate-800 focus:border-blue-500'
-                    }`}
-                  />
-                  {errors.email && (
-                    <span className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
-                      <AlertCircle className="w-3 h-3" /> {errors.email}
-                    </span>
-                  )}
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">
-                    Phone Number (Optional)
-                  </label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+1 (555) 019-2834"
-                    className="w-full bg-[#03050A] border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                  />
-                </div>
-              </div>
-
-              {/* Service Selection */}
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">
-                  Primary Service Interested In
-                </label>
-                <select
-                  value={formData.service}
-                  onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  className="w-full bg-[#03050A] border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                >
-                  {UNDERAI_SERVICES.map((s) => (
-                    <option key={s.id} value={s.title}>
-                      {s.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Project Description */}
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">
-                  Project Description <span className="text-blue-500">*</span>
-                </label>
-                <textarea
-                  rows={4}
-                  value={formData.projectDescription}
-                  onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
-                  placeholder="Tell us about your business, your goals, and what technology solution you are looking for..."
-                  className={`w-full bg-[#03050A] border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-colors ${
-                    errors.projectDescription ? 'border-red-500' : 'border-slate-800 focus:border-blue-500'
-                  }`}
-                />
-                {errors.projectDescription && (
-                  <span className="text-xs text-red-400 mt-1.5 flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3" /> {errors.projectDescription}
+          {/* Left Info Box */}
+          <LeftReveal delay={0.1} className="lg:col-span-5">
+            <Tilt3DCard className="w-full">
+              <div className="space-y-8 bg-white text-slate-900 rounded-3xl p-8 sm:p-10 shadow-xl relative overflow-hidden text-left border border-slate-200/90 backdrop-blur-2xl">
+                <div className="space-y-3">
+                  <span className="text-xs font-mono text-[#6D28D9] bg-purple-50 border border-purple-200/80 px-3.5 py-1.5 rounded-full uppercase tracking-widest font-extrabold inline-block">
+                    UnderTheAI HQ
                   </span>
-                )}
+                  <h3 className="text-2xl font-bold font-heading text-slate-900">Start a conversation</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                    Tell us about your technical goals, timeline, and requirements. Our engineering team responds within 24 hours.
+                  </p>
+                </div>
+
+                <div className="space-y-6 pt-4 border-t border-slate-200 text-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#6D28D9] border border-purple-200 flex items-center justify-center shrink-0 shadow-xs">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-500 font-medium">Email Us</div>
+                      <div className="font-bold text-slate-900">hello@undertheai.com</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#6D28D9] border border-purple-200 flex items-center justify-center shrink-0 shadow-xs">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-500 font-medium">Schedule a Call</div>
+                      <div className="font-bold text-slate-900">+1 (800) 555-UNAI</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#6D28D9] border border-purple-200 flex items-center justify-center shrink-0 shadow-xs">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-500 font-medium">Engineering Office</div>
+                      <div className="font-bold text-slate-900">San Francisco, CA & Remote</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-slate-200 text-xs text-slate-600 font-semibold">
+                  ⚡ Guaranteed response within 1 business day.
+                </div>
               </div>
+            </Tilt3DCard>
+          </LeftReveal>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full py-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-[0_0_25px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Submit Inquiry</span>
-                <Send className="w-4 h-4" />
-              </button>
+          {/* Right Contact Form */}
+          <LeftReveal delay={0.2} className="lg:col-span-7">
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-10 shadow-xl backdrop-blur-2xl text-left">
+              {submitted ? (
+                <div className="text-center py-12 space-y-6">
+                  <div className="w-16 h-16 rounded-full bg-purple-50 text-[#6D28D9] border border-purple-200 flex items-center justify-center mx-auto shadow-xs">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-2xl font-extrabold text-slate-900 font-heading">Message Sent!</h3>
+                  <p className="text-slate-600 text-sm max-w-md mx-auto font-normal">
+                    Thank you for reaching out to UnderTheAI. Our team will review your project details and get back to you shortly.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({ name: '', email: '', company: '', service: 'AI Automation', message: '' });
+                    }}
+                    className="px-6 py-2.5 rounded-xl text-xs font-bold text-[#6D28D9] bg-purple-50 border border-purple-200 hover:bg-purple-100 transition-colors cursor-pointer"
+                  >
+                    Send Another Message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Name */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+                        Name *
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="John Doe"
+                        className={`w-full px-4 py-3 rounded-xl border ${
+                          errors.name ? 'border-red-500' : 'border-slate-200'
+                        } bg-slate-50 text-slate-900 focus:outline-none focus:border-[#7C3AED] focus:bg-white text-sm font-medium transition-colors`}
+                      />
+                      {errors.name && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.name}</p>}
+                    </div>
 
-            </form>
-          )}
+                    {/* Email */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+                        Email *
+                      </label>
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="john@example.com"
+                        className={`w-full px-4 py-3 rounded-xl border ${
+                          errors.email ? 'border-red-500' : 'border-slate-200'
+                        } bg-slate-50 text-slate-900 focus:outline-none focus:border-[#7C3AED] focus:bg-white text-sm font-medium transition-colors`}
+                      />
+                      {errors.email && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.email}</p>}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Company */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+                        Company
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        placeholder="Acme Inc."
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:outline-none focus:border-[#7C3AED] focus:bg-white text-sm font-medium transition-colors"
+                      />
+                    </div>
+
+                    {/* Service Dropdown */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+                        Service Interest
+                      </label>
+                      <select
+                        value={formData.service}
+                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:outline-none focus:border-[#7C3AED] focus:bg-white text-sm font-medium transition-colors cursor-pointer"
+                      >
+                        <option value="AI Automation" className="bg-white text-slate-900">AI Automation</option>
+                        <option value="Cybersecurity" className="bg-white text-slate-900">Cybersecurity</option>
+                        <option value="Cloud Infrastructure" className="bg-white text-slate-900">Cloud Infrastructure</option>
+                        <option value="DevOps" className="bg-white text-slate-900">DevOps</option>
+                        <option value="Web Development" className="bg-white text-slate-900">Web Development</option>
+                        <option value="AI/ML" className="bg-white text-slate-900">AI/ML Solutions</option>
+                        <option value="Other" className="bg-white text-slate-900">Other Services</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+                      Message *
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Describe your project goals, scope, or questions..."
+                      className={`w-full px-4 py-3 rounded-xl border ${
+                        errors.message ? 'border-red-500' : 'border-slate-200'
+                      } bg-slate-50 text-slate-900 focus:outline-none focus:border-[#7C3AED] focus:bg-white text-sm font-medium transition-colors`}
+                    />
+                    {errors.message && <p className="text-red-500 text-xs mt-1 font-semibold">{errors.message}</p>}
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    className="w-full inline-flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6] hover:brightness-110 shadow-lg shadow-purple-500/25 transition-all cursor-pointer text-base active:scale-95"
+                  >
+                    <span>Send Message</span>
+                    <Send className="w-4 h-4" />
+                  </button>
+                </form>
+              )}
+            </div>
+          </LeftReveal>
 
         </div>
 
@@ -229,3 +242,4 @@ export const ContactPage: React.FC = () => {
     </div>
   );
 };
+

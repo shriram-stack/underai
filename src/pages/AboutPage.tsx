@@ -1,111 +1,112 @@
 import React from 'react';
 import { UnderAiLogo } from '../components/UnderAiLogo';
-import { Sparkles, ArrowRight, ShieldCheck, Cpu, Workflow, Building2 } from 'lucide-react';
+import { Sparkles, ArrowRight, ShieldCheck, Cpu, Workflow, Cloud, Award } from 'lucide-react';
+import { LeftReveal, Tilt3DCard, CardStagger } from '../components/ScrollAnimations';
 
 interface AboutPageProps {
   onNavigate: (path: string) => void;
 }
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
+  const stats = [
+    { label: 'AI & Automation', value: '100% Tailored' },
+    { label: 'Cloud & DevOps', value: '99.9% Uptime' },
+    { label: 'Cybersecurity', value: 'Zero-Trust' },
+    { label: 'Custom Software', value: 'Full Stack' }
+  ];
+
   return (
-    <div className="min-h-screen bg-[#03050A] text-white pt-28 pb-24">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 text-slate-900 pt-32 pb-24 relative overflow-hidden">
+      
+      {/* Background ambient orbs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-[#6D28D9]/10 blur-[130px]" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-[#7C3AED]/10 blur-[130px]" />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
-        <div className="text-center space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/50 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+        {/* Header - Left Aligned */}
+        <LeftReveal delay={0} className="text-left space-y-4 mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-[#6D28D9] text-xs font-bold uppercase tracking-wider shadow-xs">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>About UnderAI</span>
+            <span>About UnderTheAI</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Your complete technology partner.
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 font-heading tracking-tight">
+            Engineering intelligence for the real world.
           </h1>
-          <p className="text-slate-300 text-lg">
-            Helping businesses build, automate and protect their digital operations with clarity and reliability.
+          <p className="text-slate-600 text-lg max-w-2xl font-normal leading-relaxed">
+            UnderTheAI is a technology company focused on AI, automation, cybersecurity, cloud infrastructure and modern software engineering.
           </p>
-        </div>
+        </LeftReveal>
 
         {/* Brand Core Card */}
-        <div className="bg-[#070A12] border border-slate-800/80 rounded-3xl p-8 sm:p-12 mb-12 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+        <LeftReveal delay={0.1}>
+          <Tilt3DCard className="w-full">
+            <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-12 mb-12 shadow-xl backdrop-blur-2xl relative overflow-hidden text-left">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8 pb-8 border-b border-slate-200">
+                <UnderAiLogo size="lg" showTagline={true} variant="light" />
+                <span className="text-xs font-mono font-bold text-[#6D28D9] bg-purple-50 border border-purple-200 px-3.5 py-1.5 rounded-full">
+                  ENTERPRISE AI & TECH
+                </span>
+              </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8 pb-8 border-b border-slate-800/80">
-            <UnderAiLogo size="lg" showTagline={true} />
-          </div>
-
-          <div className="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
-            <p>
-              <strong className="text-white">UnderAI</strong> is a technology services company and complete technology partner for businesses. We help small businesses, local shop owners, retail businesses, startups, and growing companies that do not have an internal IT team.
-            </p>
-            <p>
-              Our mission is simple: explain technical services in clear, simple language that non-technical business owners can understand, and deliver robust solutions under our core brand message:
-            </p>
-            <div className="bg-[#03050A] border border-blue-500/30 rounded-2xl p-6 text-center">
-              <span className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-400 font-mono tracking-tight">
-                Build. Automate. Protect.
-              </span>
-              <p className="text-xs text-slate-400 mt-2 uppercase tracking-widest font-mono">
-                Intelligence Beyond Limits
-              </p>
+              <div className="space-y-6 text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
+                <p>
+                  <strong className="text-slate-900 font-extrabold">UnderTheAI</strong> helps businesses build modern websites, integrate AI, automate workflows, strengthen cybersecurity, manage cloud infrastructure and streamline DevOps.
+                </p>
+                <p>
+                  We bridge the gap between complex artificial intelligence and operational execution. Whether you are a fast-growing startup or an established enterprise, we build reliable technology foundations under our core mandate:
+                </p>
+                <div className="bg-gradient-to-br from-slate-50 to-purple-50/50 border border-purple-200/80 rounded-2xl p-6 text-center shadow-xs">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-[#6D28D9] font-heading tracking-tight">
+                    Build. Automate. Protect.
+                  </span>
+                  <p className="text-xs text-slate-500 mt-2 uppercase tracking-widest font-extrabold">
+                    INTELLIGENCE BEYOND LIMITS
+                  </p>
+                </div>
+              </div>
             </div>
-            <p>
-              Whether you need a modern responsive website, practical AI integration, automated customer support, reliable cloud infrastructure, cybersecurity hardening, or dependable IT support, UnderAI brings everything together in one place.
-            </p>
-          </div>
-        </div>
+          </Tilt3DCard>
+        </LeftReveal>
 
-        {/* Three Core Pillars Recap */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-[#070A12] border border-slate-800/80 rounded-2xl p-6">
-            <div className="w-10 h-10 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4">
-              <Cpu className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Build</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Modern websites, scalable platforms, and applications built for performance and growth.
-            </p>
-          </div>
-
-          <div className="bg-[#070A12] border border-slate-800/80 rounded-2xl p-6">
-            <div className="w-10 h-10 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4">
-              <Workflow className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Automate</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              AI model integration, intelligent workflows, and 24/7 customer support automation.
-            </p>
-          </div>
-
-          <div className="bg-[#070A12] border border-slate-800/80 rounded-2xl p-6">
-            <div className="w-10 h-10 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Protect</h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Cybersecurity hardening, cloud reliability, and dependable ongoing IT support.
-            </p>
-          </div>
+        {/* Statistics Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+          {stats.map((stat, idx) => (
+            <CardStagger key={idx} index={idx}>
+              <Tilt3DCard className="bg-white border border-slate-200/90 rounded-2xl p-6 text-center shadow-md hover:border-[#7C3AED]/50 transition-all backdrop-blur-md">
+                <div className="text-xl sm:text-2xl font-extrabold text-slate-900 font-heading">{stat.value}</div>
+                <div className="text-xs text-[#6D28D9] font-bold mt-1 uppercase tracking-wider">{stat.label}</div>
+              </Tilt3DCard>
+            </CardStagger>
+          ))}
         </div>
 
         {/* CTA */}
-        <div className="text-center bg-[#070A12] border border-slate-800/80 rounded-2xl p-8 sm:p-12 space-y-6">
-          <h3 className="text-2xl font-bold text-white">Ready to work with UnderAI?</h3>
-          <p className="text-slate-300 max-w-md mx-auto text-sm">
-            Let's discuss how we can support your business technology needs.
-          </p>
-          <button
-            onClick={() => {
-              onNavigate('/contact');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-[0_0_25px_rgba(37,99,235,0.4)] cursor-pointer"
-          >
-            <span>Start a Project</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
+        <LeftReveal delay={0.2}>
+          <Tilt3DCard className="w-full">
+            <div className="text-left bg-gradient-to-r from-white via-slate-50 to-purple-50/40 border border-slate-200/90 rounded-3xl p-8 sm:p-12 space-y-6 shadow-xl backdrop-blur-2xl">
+              <h3 className="text-2xl font-extrabold text-slate-900 font-heading">Ready to build with UnderTheAI?</h3>
+              <p className="text-slate-600 max-w-md text-sm sm:text-base font-normal leading-relaxed">
+                Let's turn your ideas into intelligent, scalable and secure technology.
+              </p>
+              <button
+                onClick={() => {
+                  onNavigate('/contact');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-white bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6] hover:brightness-110 transition-all shadow-lg shadow-purple-500/25 cursor-pointer active:scale-95"
+              >
+                <span>Start a Project</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </Tilt3DCard>
+        </LeftReveal>
 
       </div>
     </div>
   );
 };
+

@@ -1,229 +1,608 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowRight, Sparkles, Shield, Cpu, Cloud, Workflow, Terminal, Zap } from 'lucide-react';
-import { UnderAiLogo } from './UnderAiLogo';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { ArrowRight, Play, Cpu, Shield, Cloud, Workflow, X, CheckCircle2, Sparkles, Zap, Lock, Server } from 'lucide-react';
 
 interface HeroProps {
   onNavigate: (path: string) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+  const [showDemoModal, setShowDemoModal] = useState(false);
+  const [demoStep, setDemoStep] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // Subtle parallax effect on mouse movement
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 20;
-      const y = (e.clientY / innerHeight - 0.5) * 20;
+      if (!heroRef.current) return;
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
       setMousePos({ x, y });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const currentHero = heroRef.current;
+    if (currentHero) {
+      currentHero.addEventListener('mousemove', handleMouseMove);
+    }
+    return () => {
+      if (currentHero) {
+        currentHero.removeEventListener('mousemove', handleMouseMove);
+      }
+    };
   }, []);
 
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const heroScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.94]);
+  const heroY = useTransform(scrollYProgress, [0, 0.8], [0, 50]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.25]);
+  const heroRotateX = useTransform(scrollYProgress, [0, 0.8], [0, 4]);
+
+  const featureCards = [
+    {
+      icon: Cpu,
+      title: 'AI Automation',
+      subtitle: 'Smart workflows',
+    },
+    {
+      icon: Shield,
+      title: 'Cybersecurity',
+      subtitle: 'Secure your systems',
+    },
+    {
+      icon: Cloud,
+      title: 'Cloud Infrastructure',
+      subtitle: 'Scalable & reliable',
+    },
+    {
+      icon: Workflow,
+      title: 'DevOps',
+      subtitle: 'Streamline delivery',
+    }
+  ];
+
+  const techNodes = [
+    {
+      id: 'ai',
+      label: 'AI',
+      sub: 'LLMs & Agents',
+      icon: Sparkles,
+      color: '#7C3AED',
+      glow: 'rgba(124, 58, 237, 0.25)',
+      pos: 'top-1 sm:top-2 left-1/2 -translate-x-1/2'
+    },
+    {
+      id: 'automation',
+      label: 'Automation',
+      sub: 'Smart Workflows',
+      icon: Zap,
+      color: '#0284C7',
+      glow: 'rgba(2, 132, 199, 0.25)',
+      pos: 'top-16 sm:top-20 -right-2 sm:right-2'
+    },
+    {
+      id: 'cloud',
+      label: 'Cloud',
+      sub: 'Multi-Cloud Ops',
+      icon: Cloud,
+      color: '#2563EB',
+      glow: 'rgba(37, 99, 235, 0.25)',
+      pos: 'bottom-16 sm:bottom-20 -right-2 sm:right-2'
+    },
+    {
+      id: 'security',
+      label: 'Security',
+      sub: 'Zero-Trust Shield',
+      icon: Lock,
+      color: '#0891B2',
+      glow: 'rgba(8, 145, 178, 0.25)',
+      pos: 'bottom-16 sm:bottom-20 -left-2 sm:left-2'
+    },
+    {
+      id: 'devops',
+      label: 'DevOps',
+      sub: 'Automated CI/CD',
+      icon: Server,
+      color: '#9333EA',
+      glow: 'rgba(147, 51, 234, 0.25)',
+      pos: 'top-16 sm:top-20 -left-2 sm:left-2'
+    }
+  ];
+
   return (
-    <section className="relative min-h-[98vh] flex items-center justify-center pt-28 pb-20 overflow-hidden bg-[#03050A]">
-      {/* Background cinematic radial lighting & grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.25),rgba(3,5,10,0))] pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,#000_60%,transparent_100%)] pointer-events-none" />
+    <section 
+      ref={heroRef}
+      className="relative min-h-[92vh] lg:min-h-screen pt-28 pb-12 lg:pt-32 lg:pb-16 overflow-hidden bg-slate-50 text-slate-900 flex flex-col justify-between"
+    >
+      {/* ATMOSPHERIC SOFT PURPLE & VIOLET RADIAL GLOWS & PARTICLES */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Soft Purple Radial Glows */}
+        <div className="absolute -top-20 left-1/4 w-[600px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.12),transparent_70%)] blur-[120px]" />
+        <div className="absolute top-1/3 right-0 w-[700px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(109,40,217,0.1),transparent_70%)] blur-[140px]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.1),transparent_70%)] blur-[120px]" />
 
-      {/* Cinematic purple/blue aura lights */}
-      <div className="absolute top-1/4 left-1/4 w-[28rem] h-[28rem] bg-blue-600/15 rounded-full blur-[130px] pointer-events-none animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[32rem] h-[32rem] bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '6s' }} />
-
-      {/* Animated Flowing Data / Circuit Lines Connecting Sides to Center */}
-      <div className="absolute inset-0 pointer-events-none hidden lg:block overflow-hidden opacity-30">
-        <svg className="w-full h-full" viewBox="0 0 1440 800" fill="none">
-          <path d="M100 400 Q 400 250 720 400" stroke="url(#lineGrad1)" strokeWidth="2" strokeDasharray="6 6" className="animate-[pulse_3s_infinite]" />
-          <path d="M1340 400 Q 1040 250 720 400" stroke="url(#lineGrad2)" strokeWidth="2" strokeDasharray="6 6" className="animate-[pulse_3s_infinite_1.5s]" />
-          <defs>
-            <linearGradient id="lineGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#6366f1" stopOpacity="0.1" />
-            </linearGradient>
-            <linearGradient id="lineGrad2" x1="100%" y1="0%" x2="0%" y2="0%">
-              <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.1" />
-            </linearGradient>
-          </defs>
-        </svg>
+        {/* Scattered Faint Glowing Purple Light Particles */}
+        <div className="absolute top-1/4 right-20 w-2 h-2 rounded-full bg-[#7C3AED]/40 blur-[1px] animate-ping" style={{ animationDuration: '4s' }} />
+        <div className="absolute top-1/2 right-12 w-3 h-3 rounded-full bg-[#8B5CF6]/30 blur-[1px] animate-pulse" />
+        <div className="absolute top-1/3 right-1/3 w-2 h-2 rounded-full bg-[#A855F7]/40 blur-[1px] animate-ping" style={{ animationDuration: '6s' }} />
+        <div className="absolute bottom-1/3 right-1/4 w-2.5 h-2.5 rounded-full bg-[#6D28D9]/30 blur-[1px] animate-pulse" />
       </div>
 
-      {/* LEFT SIDE: Futuristic AI Neural Core & Particle Orb */}
-      <div 
-        className="absolute left-4 lg:left-12 top-1/2 -translate-y-1/2 w-64 lg:w-80 h-[520px] pointer-events-none hidden md:block transition-transform duration-300 ease-out z-10"
-        style={{ transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` }}
+      <motion.div 
+        style={{
+          scale: heroScale,
+          y: heroY,
+          opacity: heroOpacity,
+          rotateX: heroRotateX,
+          transformStyle: 'preserve-3d',
+        }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full my-auto perspective-1200"
       >
-        <div className="relative w-full h-full flex flex-col items-center justify-center">
-          {/* Ambient Glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-blue-400/5 to-transparent blur-3xl rounded-full" />
+        
+        {/* MAIN HERO SPLIT GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center mb-12 lg:mb-16">
           
-          {/* 3D Neural Core SVG */}
-          <div className="relative w-64 h-64 animate-[spin_30s_linear_infinite]">
-            <svg viewBox="0 0 300 300" className="w-full h-full drop-shadow-[0_0_30px_rgba(59,130,246,0.6)]">
-              <defs>
-                <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.9" />
-                  <stop offset="60%" stopColor="#1d4ed8" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#03050A" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-
-              {/* Outer Orbital Rings */}
-              <circle cx="150" cy="150" r="130" fill="none" stroke="#3b82f6" strokeWidth="1" strokeDasharray="8 8" className="opacity-40 animate-[spin_20s_linear_infinite]" />
-              <circle cx="150" cy="150" r="105" fill="none" stroke="#60a5fa" strokeWidth="1.5" strokeDasharray="12 6" className="opacity-60 animate-[spin_15s_linear_infinite_reverse]" />
-              <circle cx="150" cy="150" r="80" fill="none" stroke="#93c5fd" strokeWidth="1" className="opacity-50" />
-
-              {/* Neural Network Web */}
-              <g className="stroke-blue-400/60" strokeWidth="1">
-                <line x1="150" y1="70" x2="100" y2="120" />
-                <line x1="150" y1="70" x2="200" y2="120" />
-                <line x1="100" y1="120" x2="80" y2="180" />
-                <line x1="200" y1="120" x2="220" y2="180" />
-                <line x1="80" y1="180" x2="150" y2="230" />
-                <line x1="220" y1="180" x2="150" y2="230" />
-                <line x1="100" y1="120" x2="150" y2="150" />
-                <line x1="200" y1="120" x2="150" y2="150" />
-                <line x1="150" y1="230" x2="150" y2="150" />
-              </g>
-
-              {/* Glowing Nodes / Particles */}
-              <circle cx="150" cy="70" r="5" className="fill-blue-400 animate-ping" />
-              <circle cx="100" cy="120" r="4" className="fill-cyan-300 animate-pulse" />
-              <circle cx="200" cy="120" r="4" className="fill-cyan-300 animate-pulse" />
-              <circle cx="80" cy="180" r="4.5" className="fill-blue-500 animate-ping" />
-              <circle cx="220" cy="180" r="4.5" className="fill-blue-500 animate-ping" />
-              <circle cx="150" cy="230" r="5" className="fill-indigo-400 animate-pulse" />
-
-              {/* Central Energy Sphere */}
-              <circle cx="150" cy="150" r="45" fill="url(#coreGlow)" />
-              <circle cx="150" cy="150" r="20" className="fill-white animate-pulse" />
-            </svg>
-          </div>
-
-          {/* Core Info Badge */}
-          <div className="mt-6 px-4 py-2 rounded-xl bg-slate-950/90 border border-blue-500/40 text-xs font-mono text-blue-300 backdrop-blur-md shadow-[0_0_25px_rgba(59,130,246,0.3)] flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-blue-400 animate-pulse" />
-            <span>AI NEURAL CORE // ACTIVE</span>
-          </div>
-        </div>
-      </div>
-
-      {/* RIGHT SIDE: Cybersecurity Shield & Cloud Infrastructure Core */}
-      <div 
-        className="absolute right-4 lg:right-12 top-1/2 -translate-y-1/2 w-64 lg:w-80 h-[520px] pointer-events-none hidden md:block transition-transform duration-300 ease-out z-10"
-        style={{ transform: `translate(${-mousePos.x * 0.5}px, ${-mousePos.y * 0.5}px)` }}
-      >
-        <div className="relative w-full h-full flex flex-col items-center justify-center">
-          {/* Ambient Glow */}
-          <div className="absolute inset-0 bg-gradient-to-l from-indigo-600/20 via-blue-600/5 to-transparent blur-3xl rounded-full" />
-          
-          {/* 3D Security Shield & Cloud Core SVG */}
-          <div className="relative w-64 h-64 animate-[spin_35s_linear_infinite_reverse]">
-            <svg viewBox="0 0 300 300" className="w-full h-full drop-shadow-[0_0_30px_rgba(99,102,241,0.6)]">
-              <defs>
-                <radialGradient id="shieldGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.9" />
-                  <stop offset="60%" stopColor="#3b82f6" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#03050A" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-
-              {/* Outer Cloud & Shield Orbital Rings */}
-              <circle cx="150" cy="150" r="130" fill="none" stroke="#6366f1" strokeWidth="1" strokeDasharray="10 6" className="opacity-40 animate-[spin_25s_linear_infinite]" />
-              <circle cx="150" cy="150" r="105" fill="none" stroke="#818cf8" strokeWidth="1.5" strokeDasharray="8 8" className="opacity-60 animate-[spin_18s_linear_infinite_reverse]" />
-              <circle cx="150" cy="150" r="80" fill="none" stroke="#a5b4fc" strokeWidth="1" className="opacity-50" />
-
-              {/* Cloud & Security Circuit Lines */}
-              <g className="stroke-indigo-400/60" strokeWidth="1">
-                <path d="M100,120 Q120,90 150,110 Q180,90 200,120" fill="none" />
-                <line x1="150" y1="110" x2="150" y2="190" />
-                <line x1="110" y1="150" x2="190" y2="150" />
-                <line x1="120" y1="190" x2="180" y2="190" />
-              </g>
-
-              {/* Glowing Shield Nodes */}
-              <circle cx="150" cy="110" r="5" className="fill-indigo-400 animate-ping" />
-              <circle cx="110" cy="150" r="4" className="fill-blue-300 animate-pulse" />
-              <circle cx="190" cy="150" r="4" className="fill-blue-300 animate-pulse" />
-              <circle cx="150" cy="190" r="5.5" className="fill-indigo-500 animate-ping" />
-
-              {/* Central Shield / Cloud Core */}
-              <circle cx="150" cy="150" r="45" fill="url(#shieldGlow)" />
-              <path d="M150,130 L165,140 L165,165 C165,175 150,185 150,185 C150,185 135,175 135,165 L135,140 Z" fill="none" stroke="#ffffff" strokeWidth="2.5" className="animate-pulse" />
-            </svg>
-          </div>
-
-          {/* Core Info Badge */}
-          <div className="mt-6 px-4 py-2 rounded-xl bg-slate-950/90 border border-indigo-500/40 text-xs font-mono text-indigo-300 backdrop-blur-md shadow-[0_0_25px_rgba(99,102,241,0.3)] flex items-center gap-2">
-            <Shield className="w-4 h-4 text-indigo-400 animate-pulse" />
-            <span>CLOUD & SECURITY // SECURE</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Center Container */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">
-        <div className="space-y-8 flex flex-col items-center">
-          
-          {/* Eyebrow / Logo badge */}
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-blue-950/60 border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.25)] backdrop-blur-md">
-            <UnderAiLogo size="sm" />
-            <span className="text-xs font-mono font-medium tracking-widest uppercase text-blue-400">
-              Intelligence Beyond Limits
-            </span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08] max-w-3xl">
-            Build smarter.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-400">
-              Automate faster.
-            </span><br />
-            Stay protected.
-          </h1>
-
-          {/* Supporting Text */}
-          <p className="text-base sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl">
-            UnderAI helps businesses build modern websites, integrate AI, automate workflows, strengthen cybersecurity, manage cloud infrastructure and streamline DevOps.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 w-full max-w-md">
-            <button
-              onClick={() => onNavigate('/contact')}
-              className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] cursor-pointer text-base"
+          {/* LEFT COLUMN: STRICTLY LEFT-ALIGNED TEXT & ACTIONS */}
+          <div className="lg:col-span-6 flex flex-col items-start justify-start text-left space-y-6 max-w-2xl">
+            
+            {/* Eyebrow Pill Badge */}
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200/80 shadow-sm text-left backdrop-blur-md"
             >
-              <span>Start a Project</span>
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </button>
+              <div className="flex items-center gap-1.5 pr-2.5 border-r border-purple-200">
+                <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#6D28D9] to-[#8B5CF6] flex items-center justify-center text-white text-[10px] font-extrabold shadow-xs shadow-purple-500/30">
+                  U
+                </div>
+                <span className="text-xs font-extrabold text-slate-900">UnderTheAI</span>
+              </div>
+              <span className="text-[11px] font-mono font-bold tracking-wider text-[#6D28D9] uppercase">
+                INTELLIGENCE BEYOND LIMITS
+              </span>
+            </motion.div>
 
-            <button
-              onClick={() => onNavigate('/services')}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-slate-200 bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 transition-all duration-200 text-base cursor-pointer backdrop-blur-sm"
+            {/* Main Headline */}
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 font-heading tracking-tight leading-[1.08] text-left max-w-xl"
             >
-              Explore Services
-            </button>
+              Build smarter.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6]">
+                Automate faster.
+              </span><br />
+              Stay protected.
+            </motion.h1>
+
+            {/* Supporting Paragraph */}
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl text-left"
+            >
+              UnderTheAI helps businesses build modern websites, integrate AI, automate workflows, strengthen cybersecurity, manage cloud infrastructure and streamline DevOps.
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-wrap items-center justify-start gap-4 pt-2 text-left w-full"
+            >
+              {/* Primary Purple Gradient Pill Button */}
+              <button
+                onClick={() => {
+                  onNavigate('/services');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6] hover:brightness-110 transition-all duration-200 shadow-lg shadow-purple-500/25 border border-purple-400/30 cursor-pointer active:scale-95"
+              >
+                <span>Explore Services</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
+
+              {/* Secondary Play Demo Button */}
+              <button
+                onClick={() => setShowDemoModal(true)}
+                className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-full text-sm font-bold text-slate-800 hover:text-purple-700 transition-all duration-200 cursor-pointer"
+              >
+                <div className="w-9 h-9 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-purple-700 group-hover:scale-105 group-hover:border-[#7C3AED] transition-all">
+                  <Play className="w-4 h-4 fill-[#7C3AED] ml-0.5" />
+                </div>
+                <span>Watch Demo</span>
+              </button>
+            </motion.div>
+
           </div>
 
-          {/* Trust Highlights Strip */}
-          <div className="pt-8 grid grid-cols-3 gap-6 sm:gap-12 border-t border-slate-800/80 w-full max-w-xl text-center">
-            <div>
-              <div className="text-xl sm:text-2xl font-bold text-white font-mono">100%</div>
-              <div className="text-xs text-slate-400 mt-0.5">Tailored Solutions</div>
+          {/* RIGHT COLUMN: ANIMATED 3D FLOATING CORE & 5 CONNECTED TECH NODES */}
+          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[440px] sm:min-h-[500px] lg:min-h-[540px] w-full">
+            
+            {/* Interactive 3D Canvas with Parallax */}
+            <div 
+              className="relative w-full max-w-[540px] aspect-square flex items-center justify-center transition-transform duration-300 ease-out"
+              style={{
+                transform: `perspective(1000px) rotateY(${mousePos.x * 10}deg) rotateX(${-mousePos.y * 10}deg)`
+              }}
+            >
+
+              {/* Atmospheric Pulses & Volumetric Ambient Glow */}
+              <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-[#6D28D9]/15 via-[#7C3AED]/15 to-[#8B5CF6]/15 blur-3xl animate-pulse-glow pointer-events-none" />
+
+              {/* BACKGROUND CIRCUIT & DATA NETWORK PIPELINES */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 500 500" fill="none">
+                <defs>
+                  {/* Purple Gradient for Circuit Lines */}
+                  <linearGradient id="circuitPurpleViolet" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#6D28D9" stopOpacity="0.7" />
+                    <stop offset="50%" stopColor="#7C3AED" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.7" />
+                  </linearGradient>
+
+                  {/* Soft Neon Glow Filter */}
+                  <filter id="softGlowLight" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+
+                {/* Concentric Tech Grid Orbit Lines */}
+                <circle cx="250" cy="250" r="185" stroke="url(#circuitPurpleViolet)" strokeWidth="1.2" strokeDasharray="6 8" strokeOpacity="0.4" className="animate-rotate-slow" />
+                <circle cx="250" cy="250" r="135" stroke="#7C3AED" strokeWidth="1" strokeDasharray="3 6" strokeOpacity="0.35" className="animate-rotate-slow" style={{ animationDirection: 'reverse', animationDuration: '30s' }} />
+
+                {/* Animated Circuit Paths Connecting Center Core (250, 250) to the 5 Nodes */}
+                
+                {/* 1. Center to TOP (AI Node) */}
+                <path d="M 250 180 L 250 65" stroke="url(#circuitPurpleViolet)" strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" />
+                <circle cx="250" cy="110" r="3.5" fill="#7C3AED" filter="url(#softGlowLight)" className="animate-ping" style={{ animationDuration: '3s' }} />
+
+                {/* 2. Center to TOP RIGHT (Automation Node) */}
+                <path d="M 290 210 L 360 160 L 410 140" stroke="url(#circuitPurpleViolet)" strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" />
+                <circle cx="365" cy="158" r="3.5" fill="#8B5CF6" filter="url(#softGlowLight)" />
+
+                {/* 3. Center to BOTTOM RIGHT (Cloud Node) */}
+                <path d="M 290 290 L 360 340 L 410 360" stroke="url(#circuitPurpleViolet)" strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" />
+                <circle cx="360" cy="340" r="3.5" fill="#6D28D9" filter="url(#softGlowLight)" />
+
+                {/* 4. Center to BOTTOM LEFT (Security Node) */}
+                <path d="M 210 290 L 140 340 L 90 360" stroke="url(#circuitPurpleViolet)" strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" />
+                <circle cx="140" cy="340" r="3.5" fill="#7C3AED" filter="url(#softGlowLight)" />
+
+                {/* 5. Center to TOP LEFT (DevOps Node) */}
+                <path d="M 210 210 L 140 160 L 90 140" stroke="url(#circuitPurpleViolet)" strokeWidth="2" strokeDasharray="6 4" className="animate-dash-flow" />
+                <circle cx="140" cy="158" r="3.5" fill="#8B5CF6" filter="url(#softGlowLight)" />
+              </svg>
+
+              {/* 5 FLOATING NODES CONNECTED AROUND THE LOGO CORE */}
+              {[
+                {
+                  id: 'ai',
+                  label: 'AI',
+                  sub: 'LLMs & Agents',
+                  icon: Sparkles,
+                  color: '#6D28D9',
+                  glow: 'rgba(109, 40, 217, 0.15)',
+                  pos: 'top-1 sm:top-2 left-1/2 -translate-x-1/2'
+                },
+                {
+                  id: 'automation',
+                  label: 'Automation',
+                  sub: 'Smart Workflows',
+                  icon: Zap,
+                  color: '#7C3AED',
+                  glow: 'rgba(124, 58, 237, 0.15)',
+                  pos: 'top-16 sm:top-20 -right-2 sm:right-2'
+                },
+                {
+                  id: 'cloud',
+                  label: 'Cloud',
+                  sub: 'Multi-Cloud Ops',
+                  icon: Cloud,
+                  color: '#8B5CF6',
+                  glow: 'rgba(139, 92, 246, 0.15)',
+                  pos: 'bottom-16 sm:bottom-20 -right-2 sm:right-2'
+                },
+                {
+                  id: 'security',
+                  label: 'Security',
+                  sub: 'Zero-Trust Shield',
+                  icon: Lock,
+                  color: '#6D28D9',
+                  glow: 'rgba(109, 40, 217, 0.15)',
+                  pos: 'bottom-16 sm:bottom-20 -left-2 sm:left-2'
+                },
+                {
+                  id: 'devops',
+                  label: 'DevOps',
+                  sub: 'Automated CI/CD',
+                  icon: Server,
+                  color: '#7C3AED',
+                  glow: 'rgba(124, 58, 237, 0.15)',
+                  pos: 'top-16 sm:top-20 -left-2 sm:left-2'
+                }
+              ].map((node) => {
+                const Icon = node.icon;
+                return (
+                  <div
+                    key={node.id}
+                    className={`absolute ${node.pos} z-20 group transition-all duration-200 hover:scale-105 cursor-pointer`}
+                  >
+                    <div 
+                      className="px-3.5 py-2 rounded-2xl bg-white/95 border border-slate-200 flex items-center gap-2.5 shadow-lg hover:shadow-xl backdrop-blur-xl transition-all duration-200 group-hover:border-[#7C3AED]"
+                      style={{
+                        boxShadow: `0 8px 24px ${node.glow}`
+                      }}
+                    >
+                      <div 
+                        className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0 border border-purple-200"
+                        style={{ backgroundColor: `${node.color}15`, color: node.color }}
+                      >
+                        <Icon className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-bold font-heading tracking-wide text-slate-900 group-hover:text-[#6D28D9] transition-colors leading-tight">
+                          {node.label}
+                        </div>
+                        <div className="text-[10px] text-slate-500 font-medium hidden sm:block">
+                          {node.sub}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* CENTRAL 3D FLOATING GLASS CORE WITH EXACT UNDERAI LOGO & CIRCUIT ARTWORK */}
+              <div className="relative z-10 w-56 h-56 sm:w-72 sm:h-72 rounded-full bg-gradient-to-br from-white via-slate-50 to-slate-100 border-2 border-slate-200 shadow-[0_25px_60px_rgba(124,58,237,0.18)] backdrop-blur-3xl flex items-center justify-center transform hover:scale-105 transition-transform duration-700 overflow-hidden animate-float-particle">
+                
+                {/* Specular Light Reflection Ring */}
+                <div className="absolute top-3 left-6 w-44 h-20 border-t-2 border-l-2 border-slate-300 rounded-t-full pointer-events-none transform -rotate-12 opacity-80" />
+
+                {/* Internal Soft Purple Atmosphere Glow */}
+                <div className="absolute inset-2 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,1),rgba(243,232,255,0.8)_40%,rgba(233,213,255,0.5)_70%,rgba(192,132,252,0.3)_100%)] pointer-events-none" />
+
+                {/* EXACT VECTOR RECREATION OF U LOGO, CIRCUITS, NODES AND SPARKLE STARS */}
+                <div className="relative z-10 w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center p-2">
+                  <svg viewBox="0 0 200 200" fill="none" className="w-full h-full drop-shadow-md">
+                    <defs>
+                      {/* Metallic Purple U Mark Gradient */}
+                      <linearGradient id="exactULogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#6D28D9" />
+                        <stop offset="50%" stopColor="#7C3AED" />
+                        <stop offset="100%" stopColor="#8B5CF6" />
+                      </linearGradient>
+
+                      {/* Circuit Line Purple Gradient */}
+                      <linearGradient id="exactCircuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#7C3AED" />
+                        <stop offset="100%" stopColor="#8B5CF6" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* TOP RIGHT SPARKLE STARS */}
+                    {/* Primary 4-Point Diamond Sparkle */}
+                    <path d="M 136 50 L 138 56 L 144 58 L 138 60 L 136 66 L 134 60 L 128 58 L 134 56 Z" fill="#7C3AED" />
+                    {/* Secondary 4-Point Diamond Sparkle */}
+                    <path d="M 148 68 L 149 71 L 152 72 L 149 73 L 148 76 L 147 73 L 144 72 L 147 71 Z" fill="#8B5CF6" />
+
+                    {/* CIRCUIT TRACES EXTENDING TO THE RIGHT & UNDERNEATH */}
+                    {/* Line 1 (Upper Right with open terminal node) */}
+                    <path d="M 126 84 L 140 84 L 146 78 L 152 78" stroke="url(#exactCircuitGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="152" cy="78" r="2.5" fill="white" stroke="#7C3AED" strokeWidth="1.8" />
+
+                    {/* Line 2 (Middle Right with branch and open terminal node) */}
+                    <path d="M 126 98 L 142 98 L 148 104 L 156 104" stroke="url(#exactCircuitGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="156" cy="104" r="2.5" fill="white" stroke="#7C3AED" strokeWidth="1.8" />
+                    {/* Branch off line 2 */}
+                    <path d="M 136 98 L 140 92 L 146 92" stroke="url(#exactCircuitGrad)" strokeWidth="1.5" strokeLinecap="round" />
+                    <circle cx="146" cy="92" r="2" fill="#7C3AED" />
+
+                    {/* Line 3 (Lower Right with open terminal node) */}
+                    <path d="M 124 112 L 138 112 L 144 118 L 150 118" stroke="url(#exactCircuitGrad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="150" cy="118" r="2.5" fill="white" stroke="#7C3AED" strokeWidth="1.8" />
+
+                    {/* Line 4 (Underneath Circuit Lines wrapping below the U) */}
+                    <path d="M 102 136 L 126 136 L 134 144 L 142 144" stroke="url(#exactCircuitGrad)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="102" cy="136" r="2" fill="#7C3AED" />
+
+                    <path d="M 102 144 L 120 144 L 128 152 L 136 152" stroke="url(#exactCircuitGrad)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="102" cy="144" r="2" fill="#7C3AED" />
+
+                    <path d="M 102 152 L 114 152 L 122 160 L 128 160" stroke="url(#exactCircuitGrad)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="102" cy="152" r="2" fill="#7C3AED" />
+
+                    {/* MAIN UNDERAI "U" LOGO MARK */}
+                    <path 
+                      d="M 78 60 
+                         C 78 60 84 64 92 64 
+                         L 92 110 
+                         C 92 122 100 130 110 130 
+                         C 120 130 128 122 128 110 
+                         L 128 60 
+                         L 116 60 
+                         L 116 108 
+                         C 116 114 113 118 110 118 
+                         C 107 118 104 114 104 108 
+                         L 104 76 
+                         L 78 60 Z" 
+                      fill="url(#exactULogoGrad)" 
+                    />
+
+                    {/* GLOWING VIOLET DOT INSIDE BOTTOM LOOP OF THE U */}
+                    <circle cx="103" cy="108" r="3.5" fill="#7C3AED" />
+                    <circle cx="103" cy="108" r="1.5" fill="white" />
+                  </svg>
+                </div>
+
+                {/* Floating Particle Trails */}
+                <div className="absolute top-6 right-10 text-[#7C3AED] animate-pulse">
+                  <Sparkles className="w-4 h-4 fill-[#7C3AED]/20" />
+                </div>
+                <div className="absolute bottom-10 left-8 text-[#8B5CF6] animate-pulse" style={{ animationDelay: '1.2s' }}>
+                  <Sparkles className="w-3.5 h-3.5 fill-[#8B5CF6]/20" />
+                </div>
+
+              </div>
+
             </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-bold text-white font-mono">24/7</div>
-              <div className="text-xs text-slate-400 mt-0.5">AI-Ready Systems</div>
-            </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-bold text-white font-mono">End-to-End</div>
-              <div className="text-xs text-slate-400 mt-0.5">Technology Partner</div>
-            </div>
+
           </div>
 
         </div>
-      </div>
+
+        {/* BOTTOM FEATURE STRIP */}
+        <div className="mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {featureCards.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div 
+                  key={idx} 
+                  className="p-5 rounded-2xl bg-white border border-slate-200/80 flex items-center gap-4 hover:border-[#7C3AED]/50 transition-all duration-300 group cursor-pointer backdrop-blur-xl hover:shadow-lg hover:shadow-purple-500/10" 
+                  onClick={() => onNavigate('/services')}
+                >
+                  <div className="p-3 rounded-xl bg-purple-50 text-[#6D28D9] border border-purple-200 shrink-0 group-hover:bg-[#7C3AED] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-sm font-bold text-slate-900 font-heading group-hover:text-[#6D28D9] transition-colors">{item.title}</h3>
+                    <p className="text-xs text-slate-500 font-medium mt-0.5">{item.subtitle}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* WATCH DEMO INTERACTIVE MODAL */}
+      {showDemoModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative overflow-hidden text-slate-900">
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#6D28D9] border border-purple-200 flex items-center justify-center font-bold">
+                  <Play className="w-5 h-5 fill-[#6D28D9]" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 font-heading">UnderTheAI Architecture Tour</h3>
+                  <p className="text-xs text-slate-500">Interactive Platform Walkthrough</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowDemoModal(false)}
+                className="p-2 rounded-full hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Interactive Content */}
+            <div className="space-y-6 text-left">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-mono font-semibold text-[#6D28D9] uppercase tracking-wider">
+                    Module {demoStep + 1} of 3
+                  </span>
+                  <div className="flex gap-1.5">
+                    {[0, 1, 2].map((s) => (
+                      <div
+                        key={s}
+                        className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                          s === demoStep ? 'bg-[#7C3AED]' : 'bg-slate-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {demoStep === 0 && (
+                  <div className="space-y-3">
+                    <h4 className="text-base font-bold text-slate-900">1. AI Workflow & Process Automation</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      UnderTheAI connects your enterprise software, databases, and APIs into automated AI workflows that execute routine tasks with 100% precision.
+                    </p>
+                    <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs font-mono text-[#6D28D9] flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0" />
+                      <span>Autonomous document extraction & LLM routing</span>
+                    </div>
+                  </div>
+                )}
+
+                {demoStep === 1 && (
+                  <div className="space-y-3">
+                    <h4 className="text-base font-bold text-slate-900">2. Zero-Trust Security & Cloud Hardening</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Every application and AI agent operates inside a zero-trust framework with continuous vulnerability scans and automated key rotation.
+                    </p>
+                    <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs font-mono text-[#6D28D9] flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0" />
+                      <span>Real-time threat detection & encrypted communication</span>
+                    </div>
+                  </div>
+                )}
+
+                {demoStep === 2 && (
+                  <div className="space-y-3">
+                    <h4 className="text-base font-bold text-slate-900">3. Multi-Cloud DevOps Delivery</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Deploy resilient microservices and AI pipelines with automated CI/CD across AWS, GCP, or Azure with zero downtime.
+                    </p>
+                    <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs font-mono text-[#6D28D9] flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0" />
+                      <span>Automated container orchestration & telemetry</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Demo Modal Navigation */}
+              <div className="flex items-center justify-between pt-2">
+                <button
+                  onClick={() => setDemoStep((prev) => Math.max(0, prev - 1))}
+                  disabled={demoStep === 0}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-900 disabled:opacity-40 cursor-pointer"
+                >
+                  Previous
+                </button>
+
+                {demoStep < 2 ? (
+                  <button
+                    onClick={() => setDemoStep((prev) => Math.min(2, prev + 1))}
+                    className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#6D28D9] to-[#8B5CF6] hover:brightness-110 shadow-md cursor-pointer"
+                  >
+                    Next Module →
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setShowDemoModal(false);
+                      onNavigate('/contact');
+                    }}
+                    className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#6D28D9] via-[#7C3AED] to-[#8B5CF6] shadow-md cursor-pointer font-bold"
+                  >
+                    Start Your Project →
+                  </button>
+                )}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </section>
   );
 };

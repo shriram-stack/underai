@@ -16,15 +16,15 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   return (
-    <div className="min-h-screen bg-[#03050A] text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900">
       <Hero onNavigate={onNavigate} />
       <TrustStrip />
       <ServicesSection onNavigate={onNavigate} />
       <WhyUnderAi />
       <SolutionsSection onNavigate={onNavigate} />
       <ProcessSection />
-      <AiAutomationSection />
-      <TechArchitecture />
+      <AiAutomationSection onNavigate={onNavigate} />
+      <TechArchitecture onNavigate={onNavigate} />
       <FaqSection />
       <FinalCta onNavigate={onNavigate} />
     </div>

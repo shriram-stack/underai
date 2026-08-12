@@ -216,11 +216,11 @@ export const PROCESS_STEPS: ProcessStep[] = [
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: 'What types of businesses does UnderAI work with?',
-    answer: 'UnderAI works with small businesses, local shop owners, retail businesses, startups, and growing companies that do not have an internal IT team or want a reliable technology partner.'
+    question: 'What types of businesses does UnderTheAI work with?',
+    answer: 'UnderTheAI works with small businesses, local shop owners, retail businesses, startups, and growing companies that do not have an internal IT team or want a reliable technology partner.'
   },
   {
-    question: 'Can UnderAI build a website from scratch?',
+    question: 'Can UnderTheAI build a website from scratch?',
     answer: 'Yes. We design and build modern, fast, responsive websites tailored to help your business grow and establish a strong professional presence.'
   },
   {

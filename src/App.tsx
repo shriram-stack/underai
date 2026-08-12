@@ -38,7 +38,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#03050A] text-white flex flex-col selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-purple-600 selection:text-white font-sans overflow-x-hidden relative">
       <Navbar currentPath={currentPath} onNavigate={handleNavigate} />
       <main className="flex-grow">
         {renderPage()}
